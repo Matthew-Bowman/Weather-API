@@ -1,4 +1,5 @@
 const mysql = require(`mysql`);
+const util = require('util');
 
 module.exports.Connection = class Connection {
     constructor(pUser, pPass, pHost, pPort, pDatabase) {
@@ -21,6 +22,9 @@ module.exports.Connection = class Connection {
         // Database Connection Initialisation
         this.connection = mysql.createConnection(this.configuration);
         this.connection.connect();
+        
+        // node native promisify
+        this.query = util.promisify(this.connection.query).bind(this.connection);
     }
 
     GetData = async function() {
@@ -38,7 +42,9 @@ module.exports.Connection = class Connection {
         const dailyQuery = mysql.format(dailyQueryString, dailyQueryInserts);
 
         // Perform Queries
-        const result = await this.connection.query(currentQuery)
+        const currentQueryResult = await this.query(currentQuery)
+
+        console.log(currentQueryResult);
 
         // Return
         return returnData;
