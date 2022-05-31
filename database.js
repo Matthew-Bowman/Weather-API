@@ -25,7 +25,7 @@ module.exports.Connection = class Connection {
 
     GetData = function() {
         // Initialisation
-        let data = {}
+        let returnData = {}
 
         // Processing
         // Prepare Queries
@@ -46,7 +46,7 @@ module.exports.Connection = class Connection {
         })
 
         // Return
-        return data;
+        return returnData;
     }
 
     SetData = function() {
