@@ -23,7 +23,7 @@ module.exports.Connection = class Connection {
         this.connection.connect();
     }
 
-    GetData = function() {
+    GetData = async function() {
         // Initialisation
         let returnData = {}
 
@@ -38,12 +38,7 @@ module.exports.Connection = class Connection {
         const dailyQuery = mysql.format(dailyQueryString, dailyQueryInserts);
 
         // Perform Queries
-        this.connection.query(currentQuery, (error, result) => {
-            if (error)
-                throw error;
-
-            
-        })
+        const result = await this.connection.query(currentQuery)
 
         // Return
         return returnData;
