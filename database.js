@@ -54,7 +54,7 @@ module.exports.Connection = class Connection {
         return returnData;
     }
 
-    SetData = function() {
-
+    SetData = async function() {
+        
     }
 }
