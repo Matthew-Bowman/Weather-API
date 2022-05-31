@@ -54,9 +54,8 @@ module.exports.Connection = class Connection {
         return returnData;
     }
 
-    SetData = async function() {
+    SetData = function() {
         const response = fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=51.5072&lon=0.1276&exclude=minutely,hourly&appid=${process.env.WEATHER_KEY}`)
-        const body = response.text;
-        console.log(response.text);
+        
     }
 }
