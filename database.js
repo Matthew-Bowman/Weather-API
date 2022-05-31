@@ -19,7 +19,7 @@ module.exports.Connection = class Connection {
         }
 
         // Database Connection Initialisation
-        this.connection = mysql.createConnection(configuration);
+        this.connection = mysql.createConnection(this.configuration);
         this.connection.connect();
     }
 }
