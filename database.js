@@ -62,7 +62,7 @@ module.exports.Connection = class Connection {
                 // Parse data into js object
                 const currentData = {
                     location: "London",
-                    name: data.current.weather.main,
+                    name: data.current.weather[0].main,
                     temperature: data.current.temp,
                     min_temperature: data.daily[0].temp.min,
                     max_temperature: data.daily[0].temp.max,
@@ -80,7 +80,8 @@ module.exports.Connection = class Connection {
                     "max_temperature", currentData.max_temperature,
                     "wind_speed", currentData.wind_speed,
                     "rain_probability", currentData.rain_probability,
-                    "precipitation", currentData.precipitation];
+                    "precipitation", currentData.precipitation,
+                    "location", "London"];
                 const currentQuery = mysql.format(currentQueryString, currentQueryInserts);
 
                 // Perform queries
