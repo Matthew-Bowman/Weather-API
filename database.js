@@ -1,3 +1,4 @@
+import fetch from (`node-fetch`);
 const mysql = require(`mysql`);
 const util = require('util');
 
