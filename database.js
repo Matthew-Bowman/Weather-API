@@ -1,6 +1,7 @@
 const fetch = require(`node-fetch`);
 const mysql = require(`mysql`);
 const util = require('util');
+const { json } = require('express/lib/response');
 
 module.exports.Connection = class Connection {
     constructor(pUser, pPass, pHost, pPort, pDatabase) {
@@ -59,5 +60,31 @@ module.exports.Connection = class Connection {
         .then(res => res.json())
         .then(json => console.log(json));
         
+        // Parse data into js object
+        const currentData = {
+            location: "London",
+            name: json.current.weather.main,
+            temperature: json.current.temp,
+            min_temperature: json.daily[0].temp.min,
+            max_temperature: json.daily[0].temp.max,
+            wind_speed: json.current.wind_speed,
+            rain_probability: json.daily[0].pop,
+            precipitation: json.daily[0].rain,
+        }
+
+        // Prepare queries
+        const currentQueryString = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
+        const currentQueryInserts = ["current", 
+        "name", currentData.name,
+        "temperature", currentData.temperature,
+        "min_temperature", currentData.min_temperature,
+        "max_temperature", currentData.max_temperature,
+        "wind_speed", currentData.wind_speed,
+        "rain_probability", currentData.rain_probability,
+        "precipitation", currentData.precipitation];
+        const currentQuery = mysql.format(currentQueryString, currentQueryInserts);
+
+        // Perform queries
+        this.connection.query(currentQuery);
     }
 }
