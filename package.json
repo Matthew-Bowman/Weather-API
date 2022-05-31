@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Matthew-Bowman/Weather-API/issues"
   },
-  "homepage": "https://github.com/Matthew-Bowman/Weather-API#readme"
+  "homepage": "https://github.com/Matthew-Bowman/Weather-API#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
