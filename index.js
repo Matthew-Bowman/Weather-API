@@ -17,3 +17,5 @@ app.get('/london', (req, res) => {
 app.listen(port, () => {
     console.log(`Live on: http://localhost:${port}`);
 });
+
+setInterval(updater.Update, 60000, connection);
