@@ -11,7 +11,7 @@ module.exports.Connection = class Connection {
         this.host = pHost;
         this.port = pPort;
         this.database = pDatabase;
-    
+
         // Configuration Object
         this.configuration = {
             host: this.host,
@@ -24,12 +24,12 @@ module.exports.Connection = class Connection {
         // Database Connection Initialisation
         this.connection = mysql.createConnection(this.configuration);
         this.connection.connect();
-        
+
         // node native promisify
         this.query = util.promisify(this.connection.query).bind(this.connection);
     }
 
-    GetData = async function() {
+    GetData = async function () {
         // Initialisation
         let returnData = {}
 
@@ -55,36 +55,39 @@ module.exports.Connection = class Connection {
         return returnData;
     }
 
-    SetData = function() {
+    SetData = function () {
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=51.5072&lon=0.1276&exclude=minutely,hourly&appid=${process.env.WEATHER_KEY}`)
-        .then(res => res.json())
-        .then(json => console.log(json));
-        
-        // Parse data into js object
-        const currentData = {
-            location: "London",
-            name: json.current.weather.main,
-            temperature: json.current.temp,
-            min_temperature: json.daily[0].temp.min,
-            max_temperature: json.daily[0].temp.max,
-            wind_speed: json.current.wind_speed,
-            rain_probability: json.daily[0].pop,
-            precipitation: json.daily[0].rain,
-        }
+            .then(res => res.json())
+            .then(json => {
+                // Parse json
+                const data = JSON.parse(json);
 
-        // Prepare queries
-        const currentQueryString = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
-        const currentQueryInserts = ["current", 
-        "name", currentData.name,
-        "temperature", currentData.temperature,
-        "min_temperature", currentData.min_temperature,
-        "max_temperature", currentData.max_temperature,
-        "wind_speed", currentData.wind_speed,
-        "rain_probability", currentData.rain_probability,
-        "precipitation", currentData.precipitation];
-        const currentQuery = mysql.format(currentQueryString, currentQueryInserts);
+                // Parse data into js object
+                const currentData = {
+                    location: "London",
+                    name: data.current.weather.main,
+                    temperature: data.current.temp,
+                    min_temperature: data.daily[0].temp.min,
+                    max_temperature: data.daily[0].temp.max,
+                    wind_speed: data.current.wind_speed,
+                    rain_probability: data.daily[0].pop,
+                    precipitation: data.daily[0].rain,
+                }
 
-        // Perform queries
-        this.connection.query(currentQuery);
+                // Prepare queries
+                const currentQueryString = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
+                const currentQueryInserts = ["current",
+                    "name", currentData.name,
+                    "temperature", currentData.temperature,
+                    "min_temperature", currentData.min_temperature,
+                    "max_temperature", currentData.max_temperature,
+                    "wind_speed", currentData.wind_speed,
+                    "rain_probability", currentData.rain_probability,
+                    "precipitation", currentData.precipitation];
+                const currentQuery = mysql.format(currentQueryString, currentQueryInserts);
+
+                // Perform queries
+                this.connection.query(currentQuery);
+            });
     }
 }
