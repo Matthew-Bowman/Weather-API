@@ -42,9 +42,8 @@ module.exports.Connection = class Connection {
         const dailyQuery = mysql.format(dailyQueryString, dailyQueryInserts);
 
         // Perform Queries
-        const currentQueryResult = await this.query(currentQuery)
-
-        console.log(currentQueryResult);
+        const currentQueryResult = await this.query(currentQuery);
+        const dailyQueryResult = await this.query(dailyQuery);
 
         // Return
         return returnData;
