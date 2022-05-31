@@ -47,7 +47,7 @@ module.exports.Connection = class Connection {
 
         // Parse Data
         let currentQueryData = {}
-        let dailyQueryData = {}
+        let dailyQueryData = []
 
         // Add query results to returnData variable
         returnData.current = currentQueryData;
