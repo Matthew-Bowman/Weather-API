@@ -7,5 +7,12 @@ module.exports = class Connection {
         this.host = pHost;
         this.port = pPort;
         this.database = pDatabase;
+    
+        this.configuration = {
+            host: this.host,
+            user: this.user,
+            password: this.password,
+            database: this.database,
+        }
     }
 }
