@@ -45,13 +45,10 @@ module.exports.Connection = class Connection {
         const currentQueryResult = await this.query(currentQuery);
         const dailyQueryResult = await this.query(dailyQuery);
 
-        // Parse Data
-        let currentQueryData = {}
-        let dailyQueryData = []
-
         // Add query results to returnData variable
-        returnData.current = currentQueryData;
-        returnData.daily = dailyQueryData;
+        returnData.current = currentQueryResult;
+        returnData.daily = dailyQueryResult;
+
         // Return
         return returnData;
     }
