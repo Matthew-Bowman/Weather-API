@@ -9,7 +9,9 @@ const connection = new database.Connection(process.env.DB_USERNAME, process.env.
 const updater = require(`./updater`);
 
 app.get('/london', (req, res) => {
-    res.status(200).send(connection.GetData());
+    connection.GetData().then(data => {
+        res.status(200).send(data);
+    })
 });
 
 app.listen(port, () => {
