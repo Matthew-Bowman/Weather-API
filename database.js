@@ -28,9 +28,13 @@ module.exports.Connection = class Connection {
         let data = {}
 
         // Processing
-        
 
+        
         // Return
         return data;
+    }
+
+    SetData = function() {
+
     }
 }
