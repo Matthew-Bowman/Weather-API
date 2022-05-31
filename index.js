@@ -1,6 +1,8 @@
 const app = require(`express`)();
 const port = 8080;
 
+require(`dotenv`).config();
+
 const database = require(`./database`);
 const connection = new database.Connection(`root`, ``, `localhost`, 3306, `weather_api`);
 
