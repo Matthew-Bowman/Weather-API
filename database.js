@@ -22,4 +22,15 @@ module.exports.Connection = class Connection {
         this.connection = mysql.createConnection(this.configuration);
         this.connection.connect();
     }
+
+    GetData = function() {
+        // Initialisation
+        let data = {}
+
+        // Processing
+        
+
+        // Return
+        return data;
+    }
 }
