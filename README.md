@@ -4,3 +4,4 @@
 - express
 - mysql
 - dotenv
+- node-fetch v2
