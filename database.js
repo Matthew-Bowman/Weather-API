@@ -28,8 +28,17 @@ module.exports.Connection = class Connection {
         let data = {}
 
         // Processing
+        // Prepare Queries
+        const currentQueryString = "SELECT * FROM ?? WHERE ?? = ??"
+        const currentQueryInserts = ['current', 'location', 'London'];
+        const currentQuery = mysql.format(currentQueryString, currentQueryInserts);
+
+        const dailyQueryString = "SELECT * FROM ??";
+        const dailyQueryInserts = ['daily'];
+        const dailyQuery = mysql.format(dailyQueryString, dailyQueryInserts);
 
         
+
         // Return
         return data;
     }
