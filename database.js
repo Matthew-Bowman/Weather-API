@@ -1,4 +1,4 @@
-import fetch from (`node-fetch`);
+const fetch = require(`node-fetch`);
 const mysql = require(`mysql`);
 const util = require('util');
 
@@ -55,6 +55,8 @@ module.exports.Connection = class Connection {
     }
 
     SetData = async function() {
-        
+        const response = fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=51.5072&lon=0.1276&exclude=minutely,hourly&appid=${process.env.WEATHER_KEY}`)
+        const body = response.text;
+        console.log(response.text);
     }
 }
