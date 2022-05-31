@@ -1,3 +1,5 @@
+const mysql = require(`mysql`);
+
 module.exports = class Connection {
     constructor(pUser, pPass, pServer, pPort, pDatabase) {
         this.user = pUser;
