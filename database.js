@@ -63,6 +63,7 @@ module.exports.Connection = class Connection {
                 const currentData = {
                     location: "London",
                     name: data.current.weather[0].main,
+                    icon: data.current.weather[0].icon,
                     temperature: data.current.temp,
                     min_temperature: data.daily[0].temp.min,
                     max_temperature: data.daily[0].temp.max,
@@ -72,9 +73,10 @@ module.exports.Connection = class Connection {
                 }
 
                 // Prepare Query
-                const currentQueryString = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
+                const currentQueryString = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
                 const currentQueryInserts = ["current",
                     "name", currentData.name,
+                    "icon", currentData.icon,
                     "temperature", currentData.temperature,
                     "min_temperature", currentData.min_temperature,
                     "max_temperature", currentData.max_temperature,
@@ -91,14 +93,16 @@ module.exports.Connection = class Connection {
                     // Prepare Data
                     const dailyData = {
                         datetime: data.daily[i].dt,
+                        icon: data.daily[i].weather[0].icon,
                         min_temperature: data.daily[i].temp.min,
                         max_temperature: data.daily[i].temp.max,
                     }
 
                     // Prepare Query
-                    const dailyQueryString = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
+                    const dailyQueryString = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
                     const dailyQueryInserts = ["daily",
                         "datetime", dailyData.datetime,
+                        "icon", dailyData.icon,
                         "min_temperature", dailyData.min_temperature,
                         "max_temperature", dailyData.max_temperature,
                         "day_index", i];
