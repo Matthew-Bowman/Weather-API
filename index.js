@@ -25,9 +25,6 @@ async function GetData() {
     await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=51.5072&lon=0.1276&exclude=minutely,hourly&appid=${process.env.WEATHER_KEY}`)
         .then(res => res.json())
         .then(data => {
-
-
-
             // Prepare Data
             const currentData = {
                 location: "London",
