@@ -1,5 +1,4 @@
 const app = require(`express`)();
-const port = 8080;
 
 require(`dotenv`).config();
 
@@ -14,7 +13,7 @@ app.get('/london', (req, res) => {
     })
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
     console.log(`Live on: http://localhost:${port}`);
 });
 
