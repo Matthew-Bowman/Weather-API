@@ -84,6 +84,26 @@ module.exports.Connection = class Connection {
                     "location", "London"];
                 const currentQuery = mysql.format(currentQueryString, currentQueryInserts);
 
+                for(let i = 0; i < 7; i++) {
+                    // Prepare Data
+                    const dailyData = {
+                        datetime: data.daily[i].dt,
+                        min_temperature: data.daily[i].temp.min,
+                        max_temperature: data.daily[i].temp.max,
+                    }
+
+                    // Prepare Query
+                    const dailyQueryString = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
+                    const dailyQueryInserts = ["daily",
+                        "datetime", dailyData.datetime,
+                        "min_temperature", dailyData.min_temperature,
+                        "max_temperature", dailyData.max_temperature,
+                        "day_index", i];
+                    const dailyQuery = mysql.format(dailyQueryString, dailyQueryInserts);
+
+                    // Perform Query
+                    this.connection.query(dailyQuery);
+                }
                 // Perform queries
                 this.connection.query(currentQuery);
             });
