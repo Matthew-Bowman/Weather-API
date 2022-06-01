@@ -2,15 +2,15 @@ const app = require(`express`)();
 const fetch = require(`node-fetch`);
 require(`dotenv`).config();
 
-const database = require(`./database`);
-const connection = new database.Connection(process.env.DB_USERNAME, process.env.DB_PASSWORD, process.env.DB_HOST, process.env.DB_PORT, process.env.DB_DATABASE);
+// const database = require(`./database`);
+// const connection = new database.Connection(process.env.DB_USERNAME, process.env.DB_PASSWORD, process.env.DB_HOST, process.env.DB_PORT, process.env.DB_DATABASE);
 
 const updater = require(`./updater`);
 
 app.get('/london', (req, res) => {
-    connection.GetData().then(data => {
-        res.status(200).send(data);
-    })
+    // connection.GetData().then(data => {
+    //     res.status(200).send(data);
+    // })
 });
 
 app.listen(process.env.PORT, () => {
