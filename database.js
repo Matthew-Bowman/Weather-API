@@ -59,7 +59,7 @@ module.exports.Connection = class Connection {
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=51.5072&lon=0.1276&exclude=minutely,hourly&appid=${process.env.WEATHER_KEY}`)
             .then(res => res.json())
             .then(data => {
-                // Parse data into js object
+                // Prepare Data
                 const currentData = {
                     location: "London",
                     name: data.current.weather[0].main,
@@ -71,7 +71,7 @@ module.exports.Connection = class Connection {
                     precipitation: data.daily[0].rain,
                 }
 
-                // Prepare queries
+                // Prepare Query
                 const currentQueryString = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
                 const currentQueryInserts = ["current",
                     "name", currentData.name,
@@ -83,6 +83,9 @@ module.exports.Connection = class Connection {
                     "precipitation", currentData.precipitation,
                     "location", "London"];
                 const currentQuery = mysql.format(currentQueryString, currentQueryInserts);
+                
+                // Perform Query
+                this.connection.query(currentQuery);
 
                 for(let i = 0; i < 7; i++) {
                     // Prepare Data
@@ -104,8 +107,6 @@ module.exports.Connection = class Connection {
                     // Perform Query
                     this.connection.query(dailyQuery);
                 }
-                // Perform queries
-                this.connection.query(currentQuery);
             });
     }
 }
