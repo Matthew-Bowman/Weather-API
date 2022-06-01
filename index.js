@@ -1,5 +1,5 @@
 const app = require(`express`)();
-
+const fetch = require(`node-fetch`);
 require(`dotenv`).config();
 
 const database = require(`./database`);
